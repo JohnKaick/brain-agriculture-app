@@ -2,7 +2,7 @@ import React from 'react';
 import { Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-const AppMenu: React.FC = () => {
+const MenuComponent: React.FC = () => {
   return (
     <Menu secondary pointing>
       <Menu.Menu>
@@ -20,4 +20,4 @@ const AppMenu: React.FC = () => {
   );
 }
 
-export default AppMenu;
+export default MenuComponent;

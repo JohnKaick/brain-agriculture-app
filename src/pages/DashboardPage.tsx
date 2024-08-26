@@ -3,7 +3,7 @@ import { Container, Grid, Header, Loader, Segment, Statistic } from 'semantic-ui
 import PieChartComponent from '../components/PieChartComponent';
 import { useDashboard } from '../contexts/DashboardContext';
 
-const Dashboard: React.FC = () => {
+const DashboardPage: React.FC = () => {
   const { dashboardData, loading } = useDashboard();
 
   const farmersByStateData = dashboardData?.farmersByState?.map((item) => ({
@@ -61,4 +61,4 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardPage;
