@@ -1,12 +1,15 @@
 import React from 'react';
 import AppRoutes from './routes'
-import { Container } from 'semantic-ui-react';
+import { FarmersProvider } from './contexts/FarmersContext';
+import { DashboardProvider } from './contexts/DashboardContext';
 
 const App: React.FC = () => {
   return (
-  <Container>
-    <AppRoutes />
-  </Container>
+    <DashboardProvider>
+      <FarmersProvider>
+        <AppRoutes />
+      </FarmersProvider>
+    </DashboardProvider>
   )
 }
 

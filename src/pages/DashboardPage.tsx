@@ -1,35 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Container, Grid, Header, Loader, Segment, Statistic } from 'semantic-ui-react';
-import axios from 'axios';
 import PieChartComponent from '../components/PieChartComponent';
-
-interface DashboardData {
-    totalFarmers: number;
-    totalArea: number;
-    farmersByState: { state: string; count: string }[];
-    cropsDistribution: { crop: string; count: string }[];
-    landUsage: {
-      arableArea: number;
-      vegetationArea: number;
-    };
-};
+import { useDashboard } from '../contexts/DashboardContext';
 
 const Dashboard: React.FC = () => {
-  const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    axios.get('http://localhost:3000/farmers/dashboard')
-      .then(response => {
-        setDashboardData(response.data);
-      })
-      .catch(error => {
-        console.error('There was an error fetching the dashboard data!', error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+  const { dashboardData, loading } = useDashboard();
 
   const farmersByStateData = dashboardData?.farmersByState?.map((item) => ({
     name: item.state,
@@ -42,7 +17,7 @@ const Dashboard: React.FC = () => {
   }));
 
   if (loading) {
-    return <Loader active inline="centered" />;
+    return <Loader active inline="centered" content="Carregando..." />;
   }
 
   if (dashboardData && Object.keys(dashboardData).length === 0) {
@@ -76,10 +51,10 @@ const Dashboard: React.FC = () => {
 
       <Grid columns={2} divided>
         <Grid.Column>
-            <PieChartComponent data={farmersByStateData || []} title="Distribuição de Estados" />
+          <PieChartComponent data={farmersByStateData || []} title="Distribuição de Estados" />
         </Grid.Column>
         <Grid.Column>
-            <PieChartComponent data={cropsDistributionData || []} title="Distribuição de Culturas" />
+          <PieChartComponent data={cropsDistributionData || []} title="Distribuição de Culturas" />
         </Grid.Column>
       </Grid>
     </Container>
