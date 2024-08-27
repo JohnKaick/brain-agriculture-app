@@ -94,8 +94,6 @@ const FormFarmerPage: React.FC<FormFarmerProps> = ({ isOpen, onClose, farmer, fe
       fetchFarmers();
       onClose();
     } catch (error: any) {
-        console.log('error post')
-        console.log(error)
       if (error?.status === 400) {
         const { message } = error?.response?.data;
         setMsgErrorApi(message);
