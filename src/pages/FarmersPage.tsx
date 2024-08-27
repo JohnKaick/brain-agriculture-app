@@ -18,7 +18,7 @@ const FarmersPage: React.FC = () => {
 
   const onDeleteFarmer = async (id: string) => {
     try {
-      await axios.delete(`http://localhost:3000/farmers/${id}`);
+      await axios.delete(`${process.env.BRAIN_AGRICULTURE_API_URL}/farmers/${id}`);
       fetchFarmers();
     } catch (err) {
       console.log('Erro ao excluir agricultor.');

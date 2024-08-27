@@ -25,7 +25,7 @@ export const DashboardProvider: React.FC<{ children: ReactNode }> = ({ children 
   const [loading, setLoading] = useState(true);
 
   const fetchDashboardData = useCallback(async () => {
-    axios.get('http://localhost:3000/farmers/dashboard')
+    axios.get(`${process.env.BRAIN_AGRICULTURE_API_URL}/farmers/dashboard`)
       .then(response => {
         setDashboardData(response.data);
       })

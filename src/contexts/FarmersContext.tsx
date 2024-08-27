@@ -30,7 +30,7 @@ const FarmersProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const fetchFarmers = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:3000/farmers');
+      const response = await axios.get(`${process.env.BRAIN_AGRICULTURE_API_URL}/farmers`);
       setFarmers(response.data);
     } catch (error) {
       console.error('Erro ao buscar os dados dos agricultores', error);

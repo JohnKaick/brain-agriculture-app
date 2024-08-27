@@ -77,14 +77,14 @@ const FormFarmerPage: React.FC<FormFarmerProps> = ({ isOpen, onClose, farmer, fe
     setMsgErrorApi(null);
     try {
         if (farmer?.id) {
-            await axios.patch(`http://localhost:3000/farmers/${farmer.id}`, {
+            await axios.patch(`${process.env.BRAIN_AGRICULTURE_API_URL}/farmers/${farmer.id}`, {
               ...data,
               totalArea: Number(totalArea),
               arableArea: Number(arableArea),
               vegetationArea: Number(vegetationArea),
             });
           } else {
-            await axios.post('http://localhost:3000/farmers', {
+            await axios.post(`${process.env.BRAIN_AGRICULTURE_API_URL}/farmers`, {
               ...data,
               totalArea: Number(totalArea),
               arableArea: Number(arableArea),
