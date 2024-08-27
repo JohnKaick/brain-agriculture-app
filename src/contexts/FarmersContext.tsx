@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import axios from 'axios';
 
-interface Farmer {
+export interface Farmer {
   id: string;
   document: string;
   documentType: string;

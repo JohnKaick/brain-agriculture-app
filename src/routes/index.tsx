@@ -7,12 +7,12 @@ import MenuComponent from '../components/MenuComponent';
 const AppRoutes: React.FC = () => {
   return (
     <Router>
-        <MenuComponent />
-        <Routes>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/farmers" element={<Farmers />} />
-            <Route path="*" element={<Navigate to="/dashboard" replace />} />
-        </Routes>
+      <MenuComponent />
+      <Routes>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/farmers" element={<Farmers />} />
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      </Routes>
     </Router>
   );
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Table, Button, Icon } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
 
 interface Farmer {
   id: string;
@@ -18,9 +17,11 @@ interface Farmer {
 
 interface TableComponentProps {
   farmers: Farmer[];
+  onEditFarmer: (farmer: Farmer) => void;
+  onDeleteFarmer: (id: string) => void;
 }
 
-const TableComponent: React.FC<TableComponentProps> = ({ farmers }) => {
+const TableComponent: React.FC<TableComponentProps> = ({ farmers, onEditFarmer, onDeleteFarmer }) => {
   const headers = [
     'Nome',
     'Documento',
@@ -60,10 +61,10 @@ const TableComponent: React.FC<TableComponentProps> = ({ farmers }) => {
             <Table.Cell>{farmer.crops.join(', ')}</Table.Cell>
             <Table.Cell>
               <Button.Group>
-                <Button icon as={Link} to={`/edit/${farmer.id}`} color="blue">
+                <Button icon color="blue" onClick={() => onEditFarmer(farmer)}>
                   <Icon name="edit" />
                 </Button>
-                <Button icon as={Link} to={`/delete/${farmer.id}`} color="red">
+                <Button icon color="red" onClick={() => onDeleteFarmer(farmer.id)}>
                   <Icon name="trash" />
                 </Button>
               </Button.Group>

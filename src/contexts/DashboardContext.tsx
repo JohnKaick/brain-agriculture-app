@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useEffect, useState, ReactNode, useCallback } from 'react';
 import axios from 'axios';
 
 interface DashboardData {
@@ -15,15 +15,16 @@ interface DashboardData {
 interface DashboardContextProps {
   dashboardData: DashboardData | null;
   loading: boolean;
+  refreshData: () => void;
 }
 
-const DashboardContext = createContext<DashboardContextProps | undefined>(undefined);
+export const DashboardContext = createContext<DashboardContextProps | undefined>(undefined);
 
 export const DashboardProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  const fetchDashboardData = useCallback(async () => {
     axios.get('http://localhost:3000/farmers/dashboard')
       .then(response => {
         setDashboardData(response.data);
@@ -36,8 +37,16 @@ export const DashboardProvider: React.FC<{ children: ReactNode }> = ({ children 
       });
   }, []);
 
+  useEffect(() => {
+    fetchDashboardData();
+  }, [fetchDashboardData]);
+
+  const refreshData = () => {
+    fetchDashboardData();
+  };
+
   return (
-    <DashboardContext.Provider value={{ dashboardData, loading }}>
+    <DashboardContext.Provider value={{ dashboardData, loading, refreshData }}>
       {children}
     </DashboardContext.Provider>
   );
